@@ -1,12 +1,35 @@
-import React from 'react';
+/*import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App/index.js';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+*/
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import * as serviceWorker from './serviceWorker';
+import App from './components/App';
+import Firebase, { FirebaseContext } from './components/Firebase';
+ReactDOM.render(
+<FirebaseContext.Provider value={new Firebase()}>
+<App />
+</FirebaseContext.Provider>,
+document.getElementById('root'),
+);
+serviceWorker.unregister();
+
+
+
+const SomeComponent = () => (
+<FirebaseContext.Consumer>
+{firebase => {
+return <div>I've access to Firebase and render something.</div>;
+}}
+</FirebaseContext.Consumer>
+);
+export default SomeComponent;
